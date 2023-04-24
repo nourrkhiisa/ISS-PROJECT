@@ -12,9 +12,9 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-import LogoutIcon from "@mui/icons-material/Logout";
-import { useEffect } from "react";
 
+import { useEffect } from "react";
+import LogoutIcon from "@mui/icons-material/Logout";
 // react-router-dom components
 import { useLocation, NavLink } from "react-router-dom";
 
@@ -182,11 +182,11 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
       <MDBox p={2} mt="auto">
         <MDButton
           component="a"
-          href=""
+          href="https://www.creative-tim.com/product/material-dashboard-pro-react"
           target="_blank"
-          color={sidenavColor}
           rel="noreferrer"
           variant="gradient"
+          color={sidenavColor}
           fullWidth
         >
           <LogoutIcon />

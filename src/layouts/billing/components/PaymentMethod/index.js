@@ -38,12 +38,12 @@ function PaymentMethod() {
   return (
     <Card id="delete-account">
       <MDBox pt={2} px={2} display="flex" justifyContent="space-between" alignItems="center">
-        <MDTypography variant="h6" fontWeight="medium">
+        {/* <MDTypography variant="h6" fontWeight="medium">
           Payment Method
-        </MDTypography>
+        </MDTypography> */}
         <MDButton variant="gradient" color="dark">
           <Icon sx={{ fontWeight: "bold" }}>add</Icon>
-          &nbsp;add new card
+          &nbsp;add new course
         </MDButton>
       </MDBox>
       <MDBox p={2}>
@@ -86,9 +86,9 @@ function PaymentMethod() {
               }}
             >
               <MDBox component="img" src={visaLogo} alt="master card" width="10%" mr={2} />
-              <MDTypography variant="h6" fontWeight="medium">
+              {/* <MDTypography variant="h6" fontWeight="medium">
                 ****&nbsp;&nbsp;****&nbsp;&nbsp;****&nbsp;&nbsp;5248
-              </MDTypography>
+              </MDTypography> */}
               <MDBox ml="auto" lineHeight={0} color={darkMode ? "white" : "dark"}>
                 <Tooltip title="Edit Card" placement="top">
                   <Icon sx={{ cursor: "pointer" }} fontSize="small">
