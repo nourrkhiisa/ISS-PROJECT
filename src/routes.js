@@ -37,13 +37,16 @@ Coded by www.creative-tim.com
 
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
-import Tables from "layouts/tables";
+// import Tables from "layouts/tables";
+import Coachtable from "layouts/tables/coachtable/coachtable";
 import Billing from "layouts/billing";
 import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
-
+import Coursetable from "layouts/tables/coursetable/coursetable";
+import Studenttable from "layouts/tables/studenttable/studenttable";
+import Calendar from "layouts/calendar/calendar";
 // @mui icons
 import Icon from "@mui/material/Icon";
 
@@ -56,14 +59,14 @@ const routes = [
     route: "/dashboard",
     component: <Dashboard />,
   },
-  {
-    type: "collapse",
-    name: "Tables",
-    key: "tables",
-    icon: <Icon fontSize="small">table_view</Icon>,
-    route: "/tables",
-    component: <Tables />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Tables",
+  //   key: "tables",
+  //   icon: <Icon fontSize="small">table_view</Icon>,
+  //   route: "/tables",
+  //   component: <Tables />,
+  // },
   {
     type: "collapse",
     name: "Billing",
@@ -103,6 +106,39 @@ const routes = [
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/authentication/sign-up",
     component: <SignUp />,
+  },
+
+  {
+    type: "collapse",
+    name: "Coach Table",
+    key: "Coach Table",
+    icon: <Icon fontSize="small">Coach Table</Icon>,
+    route: "/tables/coachtable",
+    component: <Coachtable />,
+  },
+  {
+    type: "collapse",
+    name: "Course Table",
+    key: "Course Table",
+    icon: <Icon fontSize="small">Course Table</Icon>,
+    route: "/tables/coursetable",
+    component: <Coursetable />,
+  },
+  {
+    type: "collapse",
+    name: "Student Table",
+    key: "Student Table",
+    icon: <Icon fontSize="small">Student Table</Icon>,
+    route: "/tables/studenttable",
+    component: <Studenttable />,
+  },
+  {
+    type: "collapse",
+    name: "Calendar",
+    key: "Calendar",
+    icon: <Icon fontSize="small">Calendar</Icon>,
+    route: "/calendar",
+    component: <Calendar />,
   },
 ];
 

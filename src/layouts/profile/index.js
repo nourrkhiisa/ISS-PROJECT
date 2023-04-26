@@ -42,10 +42,10 @@ import PlatformSettings from "layouts/profile/components/PlatformSettings";
 import profilesListData from "layouts/profile/data/profilesListData";
 
 // Images
-import homeDecor1 from "assets/images/home-decor-1.jpg";
-import homeDecor2 from "assets/images/home-decor-2.jpg";
-import homeDecor3 from "assets/images/home-decor-3.jpg";
-import homeDecor4 from "assets/images/home-decor-4.jpeg";
+import Fl from "assets/images/Fl.png";
+import angular1 from "assets/images/angular1.png";
+import ML from "assets/images/ML.png";
+import BD from "assets/images/BD.png";
 import team1 from "assets/images/team-1.jpg";
 import team2 from "assets/images/team-2.jpg";
 import team3 from "assets/images/team-3.jpg";
@@ -102,11 +102,11 @@ function Overview() {
         </MDBox>
         <MDBox pt={2} px={2} lineHeight={1.25}>
           <MDTypography variant="h6" fontWeight="medium">
-            Projects
+            Courses
           </MDTypography>
           <MDBox mb={1}>
             <MDTypography variant="button" color="text">
-              Architects design houses
+              Software Courses
             </MDTypography>
           </MDBox>
         </MDBox>
@@ -114,15 +114,15 @@ function Overview() {
           <Grid container spacing={6}>
             <Grid item xs={12} md={6} xl={3}>
               <DefaultProjectCard
-                image={homeDecor1}
-                label="project #2"
-                title="modern"
-                description="As Uber works through a huge amount of internal management turmoil."
+                image={Fl}
+                label="Course #2"
+                title="Introduction to Flutter"
+                description="Flutter is an open-source UI software development kit created by Google."
                 action={{
                   type: "internal",
                   route: "/pages/profile/profile-overview",
                   color: "info",
-                  label: "view project",
+                  label: "view Course",
                 }}
                 authors={[
                   { image: team1, name: "Elena Morison" },
@@ -134,15 +134,15 @@ function Overview() {
             </Grid>
             <Grid item xs={12} md={6} xl={3}>
               <DefaultProjectCard
-                image={homeDecor2}
-                label="project #1"
-                title="scandinavian"
-                description="Music is something that everyone has their own specific opinion about."
+                image={angular1}
+                label=" Course #1"
+                title="Angular"
+                description="Angular is a TypeScript-based, free and open-source web application framework led by the Angular Team at Google and by a community of individuals and corporations."
                 action={{
                   type: "internal",
                   route: "/pages/profile/profile-overview",
                   color: "info",
-                  label: "view project",
+                  label: "view Course",
                 }}
                 authors={[
                   { image: team3, name: "Nick Daniel" },
@@ -154,15 +154,15 @@ function Overview() {
             </Grid>
             <Grid item xs={12} md={6} xl={3}>
               <DefaultProjectCard
-                image={homeDecor3}
-                label="project #3"
-                title="minimalist"
-                description="Different people have different taste, and various types of music."
+                image={BD}
+                label="Course #3"
+                title="Big Data"
+                description="Big data is data that contains greater variety, arriving in increasing volumes and with more velocityNode.js is a cross-platform, open-source server environment that can run on Windows, Linux, Unix, macOS, and more."
                 action={{
                   type: "internal",
                   route: "/pages/profile/profile-overview",
                   color: "info",
-                  label: "view project",
+                  label: "view Course",
                 }}
                 authors={[
                   { image: team4, name: "Peterson" },
@@ -174,15 +174,15 @@ function Overview() {
             </Grid>
             <Grid item xs={12} md={6} xl={3}>
               <DefaultProjectCard
-                image={homeDecor4}
-                label="project #4"
-                title="gothic"
-                description="Why would anyone pick blue over pink? Pink is obviously a better color."
+                image={ML}
+                label="Course #4"
+                title="Machine Learning"
+                description="Machine learning is a branch of artificial intelligence (AI) and computer science which focuses on the use of data and algorithms to imitate the way that humans learn, gradually improving its accuracy."
                 action={{
                   type: "internal",
                   route: "/pages/profile/profile-overview",
                   color: "info",
-                  label: "view project",
+                  label: "view Course",
                 }}
                 authors={[
                   { image: team4, name: "Peterson" },

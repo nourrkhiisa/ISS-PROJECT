@@ -50,7 +50,7 @@ function Notifications() {
     <MDTypography variant="body2" color="white">
       A simple {name} alert with{" "}
       <MDTypography component="a" href="#" variant="body2" fontWeight="medium" color="white">
-        an example link
+        Course updated
       </MDTypography>
       . Give it a click if you like.
     </MDTypography>
@@ -60,8 +60,8 @@ function Notifications() {
     <MDSnackbar
       color="success"
       icon="check"
-      title="Material Dashboard"
-      content="Hello, world! This is a notification message"
+      title="Course updated"
+      content="Another Course updated successfully"
       dateTime="11 mins ago"
       open={successSB}
       onClose={closeSuccessSB}
@@ -73,8 +73,8 @@ function Notifications() {
   const renderInfoSB = (
     <MDSnackbar
       icon="notifications"
-      title="Material Dashboard"
-      content="Hello, world! This is a notification message"
+      title="Course started"
+      content="The Course introduction to Flutter started"
       dateTime="11 mins ago"
       open={infoSB}
       onClose={closeInfoSB}
@@ -86,8 +86,8 @@ function Notifications() {
     <MDSnackbar
       color="warning"
       icon="star"
-      title="Material Dashboard"
-      content="Hello, world! This is a notification message"
+      title="evaluation Quiz Problem"
+      content="there is a bug in the evaluation quiz"
       dateTime="11 mins ago"
       open={warningSB}
       onClose={closeWarningSB}
@@ -100,8 +100,8 @@ function Notifications() {
     <MDSnackbar
       color="error"
       icon="warning"
-      title="Material Dashboard"
-      content="Hello, world! This is a notification message"
+      title="Course Problem"
+      content="One of the have a problem to access the Course"
       dateTime="11 mins ago"
       open={errorSB}
       onClose={closeErrorSB}
@@ -153,9 +153,9 @@ function Notifications() {
             <Card>
               <MDBox p={2} lineHeight={0}>
                 <MDTypography variant="h5">Notifications</MDTypography>
-                <MDTypography variant="button" color="text" fontWeight="regular">
+                {/* <MDTypography variant="button" color="text" fontWeight="regular">
                   Notifications on this page use Toasts from Bootstrap. Read more details here.
-                </MDTypography>
+                </MDTypography> */}
               </MDBox>
               <MDBox p={2}>
                 <Grid container spacing={3}>
