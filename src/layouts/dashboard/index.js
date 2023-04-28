@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // @mui material components
 import Grid from "@mui/material/Grid";
 
@@ -32,7 +17,7 @@ import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 
 // Dashboard components
-import Projects from "layouts/dashboard/components/Projects";
+import CalendarDashboard from "layouts/dashboard/components/CalendarDashboard";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 
 function Dashboard() {
@@ -47,12 +32,12 @@ function Dashboard() {
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 color="dark"
-                icon="weekend"
-                title="Bookings"
-                count={281}
+                icon="books"
+                title="Number of Trainings"
+                count={20}
                 percentage={{
                   color: "success",
-                  amount: "+55%",
+                  amount: "+25%",
                   label: "than lask week",
                 }}
               />
@@ -62,8 +47,8 @@ function Dashboard() {
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 icon="leaderboard"
-                title="Today's Users"
-                count="2,300"
+                title="Number of Participants"
+                count="200"
                 percentage={{
                   color: "success",
                   amount: "+3%",
@@ -76,9 +61,9 @@ function Dashboard() {
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 color="success"
-                icon="store"
-                title="Revenue"
-                count="34k"
+                icon="web"
+                title="Website Visitors"
+                count="5k"
                 percentage={{
                   color: "success",
                   amount: "+1%",
@@ -92,7 +77,7 @@ function Dashboard() {
               <ComplexStatisticsCard
                 color="primary"
                 icon="person_add"
-                title="Followers"
+                title="Accounts"
                 count="+91"
                 percentage={{
                   color: "success",
@@ -109,9 +94,9 @@ function Dashboard() {
               <MDBox mb={3}>
                 <ReportsBarChart
                   color="info"
-                  title="website views"
-                  description="Last Campaign Performance"
-                  date="campaign sent 2 days ago"
+                  title="Attendance"
+                  description="Number of Attendees"
+                  date="updated 1 day ago"
                   chart={reportsBarChartData}
                 />
               </MDBox>
@@ -120,10 +105,10 @@ function Dashboard() {
               <MDBox mb={3}>
                 <ReportsLineChart
                   color="success"
-                  title="daily sales"
+                  title="Enrollement"
                   description={
                     <>
-                      (<strong>+15%</strong>) increase in today sales.
+                      (<strong>+15%</strong>) increase
                     </>
                   }
                   date="updated 4 min ago"
@@ -135,8 +120,8 @@ function Dashboard() {
               <MDBox mb={3}>
                 <ReportsLineChart
                   color="dark"
-                  title="completed tasks"
-                  description="Last Campaign Performance"
+                  title="completed trainings"
+                  description="number of completed trainings"
                   date="just updated"
                   chart={tasks}
                 />
@@ -147,7 +132,7 @@ function Dashboard() {
         <MDBox>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={8}>
-              <Projects />
+              <CalendarDashboard />
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
               <OrdersOverview />

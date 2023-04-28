@@ -39,7 +39,7 @@ import MDButton from "components/MDButton";
 import BasicLayout from "layouts/authentication/components/BasicLayout";
 
 // Images
-import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+import bgImage from "assets/images/bg2.jpg";
 
 function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
@@ -51,7 +51,7 @@ function Basic() {
       <Card>
         <MDBox
           variant="gradient"
-          bgColor="info"
+          bgColor="dark"
           borderRadius="lg"
           coloredShadow="info"
           mx={2}
@@ -102,7 +102,7 @@ function Basic() {
               </MDTypography>
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
+              <MDButton variant="gradient" color="dark" fullWidth>
                 sign in
               </MDButton>
             </MDBox>
@@ -113,7 +113,7 @@ function Basic() {
                   component={Link}
                   to="/authentication/sign-up"
                   variant="button"
-                  color="info"
+                  color="warning"
                   fontWeight="medium"
                   textGradient
                 >

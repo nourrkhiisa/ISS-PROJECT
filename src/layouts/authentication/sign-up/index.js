@@ -1,24 +1,11 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // react-router-dom components
 import { Link } from "react-router-dom";
 
 // @mui material components
 import Card from "@mui/material/Card";
 import Checkbox from "@mui/material/Checkbox";
+import React, { useState } from "react";
+import { InputLabel, MenuItem, FormControl, Select } from "@mui/material";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -30,15 +17,27 @@ import MDButton from "components/MDButton";
 import CoverLayout from "layouts/authentication/components/CoverLayout";
 
 // Images
-import bgImage from "assets/images/bg-sign-up-cover.jpeg";
+import bgImage from "assets/images/bg2.jpg";
+
+const roleOptions = [
+  { value: "admin", label: "Admin" },
+  { value: "coach", label: "Coach" },
+  { value: "student", label: "Student" },
+];
 
 function Cover() {
+  const [role, setRole] = useState("");
+
+  const handleRoleChange = (event) => {
+    setRole(event.target.value);
+  };
+
   return (
     <CoverLayout image={bgImage}>
       <Card>
         <MDBox
           variant="gradient"
-          bgColor="info"
+          bgColor="dark"
           borderRadius="lg"
           coloredShadow="success"
           mx={2}
@@ -65,6 +64,26 @@ function Cover() {
             <MDBox mb={2}>
               <MDInput type="password" label="Password" variant="standard" fullWidth />
             </MDBox>
+            <MDBox mb={2}>
+              <FormControl variant="standard" fullWidth>
+                <InputLabel id="role-label">Role</InputLabel>
+                <Select
+                  labelId="role-label"
+                  id="role-select"
+                  value={role}
+                  label="Role"
+                  onChange={handleRoleChange}
+                  defaultValue=""
+                  sx={{ minWidth: "160px" }}
+                >
+                  {roleOptions.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
               <Checkbox />
               <MDTypography
@@ -73,21 +92,21 @@ function Cover() {
                 color="text"
                 sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
               >
-                &nbsp;&nbsp;I agree the&nbsp;
+                &nbsp;&nbsp;I agree to the&nbsp;
               </MDTypography>
               <MDTypography
                 component="a"
                 href="#"
                 variant="button"
                 fontWeight="bold"
-                color="info"
+                color="warning"
                 textGradient
               >
                 Terms and Conditions
               </MDTypography>
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
+              <MDButton variant="gradient" color="dark" fullWidth>
                 sign in
               </MDButton>
             </MDBox>
@@ -98,7 +117,7 @@ function Cover() {
                   component={Link}
                   to="/authentication/sign-in"
                   variant="button"
-                  color="info"
+                  color="warning"
                   fontWeight="medium"
                   textGradient
                 >

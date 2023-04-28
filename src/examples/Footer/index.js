@@ -13,7 +13,6 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-// prop-types is a library for typechecking of props
 // @mui material components
 import Icon from "@mui/material/Icon";
 
@@ -50,7 +49,7 @@ function Footer() {
             favorite
           </Icon>
         </MDBox>
-        by &nbsp;SELF-LEARN ODC PLATFORM &nbsp;
+        by &nbsp;E-Learning ODC Platform &nbsp;
       </MDBox>
       <MDBox
         component="ul"

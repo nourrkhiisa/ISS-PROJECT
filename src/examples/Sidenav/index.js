@@ -1,20 +1,5 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-import LogoutIcon from "@mui/icons-material/Logout";
 import { useEffect } from "react";
-
+import LogoutIcon from "@mui/icons-material/Logout";
 // react-router-dom components
 import { useLocation, NavLink } from "react-router-dom";
 
@@ -184,9 +169,9 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           component="a"
           href=""
           target="_blank"
-          color={sidenavColor}
           rel="noreferrer"
           variant="gradient"
+          color={sidenavColor}
           fullWidth
         >
           <LogoutIcon />
@@ -200,7 +185,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
 // Setting default values for the props of Sidenav
 Sidenav.defaultProps = {
   color: "info",
-  brand: "",
+  brand: "E-Learning ODC PLatform",
 };
 
 // Typechecking props for the Sidenav
