@@ -47,6 +47,8 @@ import SignUp from "layouts/authentication/sign-up";
 import Coursetable from "layouts/tables/coursetable/coursetable";
 import Studenttable from "layouts/tables/studenttable/studenttable";
 import Calendar from "layouts/calendar/calendar";
+import Coachform from "layouts/coachform/coachform";
+import Studentdashboard from "layouts/studentdashboard/studentdashboard";
 // @mui icons
 import Icon from "@mui/material/Icon";
 
@@ -134,11 +136,27 @@ const routes = [
   },
   {
     type: "collapse",
+    name: "Coach Form",
+    key: "Coach Form",
+    icon: <Icon fontSize="small">Coach Form</Icon>,
+    route: "/coachform",
+    component: <Coachform />,
+  },
+  {
+    type: "collapse",
     name: "Calendar",
     key: "Calendar",
     icon: <Icon fontSize="small">Calendar</Icon>,
     route: "/calendar",
     component: <Calendar />,
+  },
+  {
+    type: "collapse",
+    name: "Student Dashboard",
+    key: "Student Dashboard",
+    icon: <Icon fontSize="small">Student Dashboard</Icon>,
+    route: "/studentdashboard/",
+    component: <Studentdashboard />,
   },
 ];
 
