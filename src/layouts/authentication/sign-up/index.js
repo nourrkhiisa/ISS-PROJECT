@@ -1,24 +1,11 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // react-router-dom components
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // @mui material components
 import Card from "@mui/material/Card";
 import Checkbox from "@mui/material/Checkbox";
+import React, { useState ,useContext } from "react";
+import { InputLabel, MenuItem, FormControl, Select } from "@mui/material";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -30,15 +17,49 @@ import MDButton from "components/MDButton";
 import CoverLayout from "layouts/authentication/components/CoverLayout";
 
 // Images
-import bgImage from "assets/images/bg-sign-up-cover.jpeg";
+import bgImage from "assets/images/bg2.jpg";
+import { AuthContext } from "contexts/AuthContext";
+
+const roleOptions = [
+  { value: "administrator", label: "Admin" },
+  { value: "coach", label: "Coach" },
+  { value: "student", label: "Student" },
+];
 
 function Cover() {
+  const [role, setRole] = useState("");
+
+  const [error, setError] = useState(null);
+  const { signUp } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleSignUp = async ({ email, password, firstName, lastName, role }) => {
+    try {
+      console.log("Request body from frontend:", {
+        email,
+        password,
+        firstName,
+        lastName,
+        role,
+      }); // Add this line to log the request body
+
+      await signUp(email, password, firstName, lastName, role);
+      navigate("/login");
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleRoleChange = (event) => {
+    setRole(event.target.value);
+  };
+
   return (
     <CoverLayout image={bgImage}>
       <Card>
         <MDBox
           variant="gradient"
-          bgColor="info"
+          bgColor="dark"
           borderRadius="lg"
           coloredShadow="success"
           mx={2}
@@ -55,18 +76,52 @@ function Cover() {
           </MDTypography>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
-          <MDBox component="form" role="form">
+          <MDBox
+            component="form"
+            role="form"
+            onSubmit={(event) => {
+              event.preventDefault();
+              handleSignUp({
+                email: event.target.email.value,
+                password: event.target.password.value,
+                firstName: event.target.firstName.value,
+                lastName: event.target.lastName.value,
+                role,
+              });
+            }}
+          >
             <MDBox mb={2}>
-              <MDInput type="text" label=" Full Name" variant="standard" fullWidth />
+              <MDInput type="text" name="firstName" label=" First Name" variant="standard" fullWidth />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="email" label="Email" variant="standard" fullWidth />
+              <MDInput type="text"  name="lastName" label="Last Name" variant="standard" fullWidth />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" variant="standard" fullWidth />
+              <MDInput type="email" name="email" label="Email" variant="standard" fullWidth />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="role" label="Role" variant="standard" fullWidth />
+              <MDInput type="password" name="password" label="Password" variant="standard" fullWidth />
+            </MDBox>
+
+            <MDBox mb={2}>
+              <FormControl variant="standard" fullWidth>
+                <InputLabel id="role-label">Role</InputLabel>
+                <Select
+                  labelId="role-label"
+                  id="role-select"
+                  value={role}
+                  label="Role"
+                  onChange={handleRoleChange}
+                  defaultValue=""
+                  sx={{ minWidth: "160px" }}
+                >
+                  {roleOptions.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
               <Checkbox />
@@ -76,21 +131,21 @@ function Cover() {
                 color="text"
                 sx={{ cursor: "pointer", userSelect: "none", ml: -1 }}
               >
-                &nbsp;&nbsp;I agree the&nbsp;
+                &nbsp;&nbsp;I agree to the&nbsp;
               </MDTypography>
               <MDTypography
                 component="a"
                 href="#"
                 variant="button"
                 fontWeight="bold"
-                color="info"
+                color="warning"
                 textGradient
               >
                 Terms and Conditions
               </MDTypography>
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
+              <MDButton type="submit" variant="gradient" color="dark" fullWidth>
                 sign in
               </MDButton>
             </MDBox>
@@ -101,7 +156,7 @@ function Cover() {
                   component={Link}
                   to="/authentication/sign-in"
                   variant="button"
-                  color="info"
+                  color="warning"
                   fontWeight="medium"
                   textGradient
                 >

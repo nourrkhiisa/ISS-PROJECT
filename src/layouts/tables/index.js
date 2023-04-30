@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -28,14 +13,14 @@ import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 
 // Data
-import authorsTableData from "layouts/tables/data/authorsTableData";
-import projectsTableData from "layouts/tables/data/projectsTableData";
-// import studentsTableData from "layouts/tables/data/studentsTableData";
+import coachTableData from "layouts/tables/data/coachTableData";
+import coursesTableData from "layouts/tables/data/coursesTableData";
+import studentsTableData from "layouts/tables/data/studentsTableData";
 
 function Tables() {
-  const { columns, rows } = authorsTableData();
-  const { columns: pColumns, rows: pRows } = projectsTableData();
-  // const { columns: sColumns, rows: sRows } = studentsTableData();
+  const { columns, rows } = coachTableData();
+  const { columns: pColumns, rows: pRows, renderDialog: renderCoursesDialog } = coursesTableData();
+  const { columns: sColumns, rows: sRows } = studentsTableData();
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -49,7 +34,7 @@ function Tables() {
                 py={3}
                 px={2}
                 variant="gradient"
-                bgColor="info"
+                bgColor="secondary"
                 borderRadius="lg"
                 coloredShadow="info"
               >
@@ -76,15 +61,15 @@ function Tables() {
                 py={3}
                 px={2}
                 variant="gradient"
-                bgColor="info"
+                bgColor="warning"
                 borderRadius="lg"
                 coloredShadow="info"
               >
                 <MDTypography variant="h6" color="white">
-                  Courses Table
+                  Students Table
                 </MDTypography>
               </MDBox>
-              {/* <MDBox pt={3}>
+              <MDBox pt={3}>
                 <DataTable
                   table={{ columns: sColumns, rows: sRows }}
                   isSorted={false}
@@ -92,7 +77,7 @@ function Tables() {
                   showTotalEntries={false}
                   noEndBorder
                 />
-              </MDBox> */}
+              </MDBox>
             </Card>
           </Grid>
           <Grid item xs={12}>
@@ -103,12 +88,12 @@ function Tables() {
                 py={3}
                 px={2}
                 variant="gradient"
-                bgColor="info"
+                bgColor="dark"
                 borderRadius="lg"
                 coloredShadow="info"
               >
                 <MDTypography variant="h6" color="white">
-                  students Table
+                  Courses Table
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
@@ -124,6 +109,7 @@ function Tables() {
           </Grid>
         </Grid>
       </MDBox>
+      {renderCoursesDialog()}
       <Footer />
     </DashboardLayout>
   );

@@ -71,5 +71,4 @@ function Footer() {
     </MDBox>
   );
 }
-
 export default Footer;

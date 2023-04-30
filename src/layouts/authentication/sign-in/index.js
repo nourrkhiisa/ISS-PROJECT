@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 // react-router-dom components
 import { Link } from "react-router-dom";
@@ -37,21 +37,49 @@ import MDButton from "components/MDButton";
 
 // Authentication layout components
 import BasicLayout from "layouts/authentication/components/BasicLayout";
-
+import { AuthContext } from "contexts/AuthContext";
 // Images
-import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+import bgImage from "assets/images/bg2.jpg";
+import { useNavigate } from "react-router-dom";
 
 function Basic() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
+  const { login, setCurrentUser, role } = useContext(AuthContext);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    // Call the onLogin prop with email and password as arguments
+
+    await handleLogin(email, password);
+  };
+
+  const handleLogin = async (email, password) => {
+    try{
+    const loggedInUser = await login(email, password);
+    setCurrentUser(loggedInUser);
+    if (loggedInUser.role === "administrator") {
+      navigate("/tables");
+    } else if (loggedInUser.role === "coach") {
+      navigate("/coachform");
+    } else if (loggedInUser.role === "student") {
+      navigate("/studentdashboard");
+    }
+  } catch (err) {
+    setError(err.message);
+  }
+  };
 
   return (
     <BasicLayout image={bgImage}>
       <Card>
         <MDBox
           variant="gradient"
-          bgColor="info"
+          bgColor="dark"
           borderRadius="lg"
           coloredShadow="info"
           mx={2}
@@ -82,12 +110,24 @@ function Basic() {
           </Grid>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
-          <MDBox component="form" role="form">
+          <MDBox component="form" role="form" onSubmit={handleSubmit}>
             <MDBox mb={2}>
-              <MDInput type="email" label="Email" fullWidth />
+              <MDInput
+                type="email"
+                label="Email"
+                fullWidth
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" fullWidth />
+              <MDInput
+                type="password"
+                label="Password"
+                fullWidth
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
               <Switch checked={rememberMe} onChange={handleSetRememberMe} />
@@ -101,8 +141,13 @@ function Basic() {
                 &nbsp;&nbsp;Remember me
               </MDTypography>
             </MDBox>
+            {error && (
+              <MDBox mt={2} color="error">
+                {error}
+              </MDBox>
+            )}
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
+              <MDButton type="submit" variant="gradient" color="dark" fullWidth>
                 sign in
               </MDButton>
             </MDBox>
@@ -113,7 +158,7 @@ function Basic() {
                   component={Link}
                   to="/authentication/sign-up"
                   variant="button"
-                  color="info"
+                  color="warning"
                   fontWeight="medium"
                   textGradient
                 >

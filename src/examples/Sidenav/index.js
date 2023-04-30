@@ -1,22 +1,7 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 // react-router-dom components
-import { useLocation, NavLink } from "react-router-dom";
+import { useLocation, NavLink, Navigate, useNavigate } from "react-router-dom";
 
 // prop-types is a library for typechecking of props.
 import PropTypes from "prop-types";
@@ -38,6 +23,7 @@ import SidenavCollapse from "examples/Sidenav/SidenavCollapse";
 // Custom styles for the Sidenav
 import SidenavRoot from "examples/Sidenav/SidenavRoot";
 import sidenavLogoLabel from "examples/Sidenav/styles/sidenav";
+import { AuthContext } from "contexts/AuthContext";
 
 // Material Dashboard 2 React context
 import {
@@ -48,10 +34,13 @@ import {
 } from "context";
 
 function Sidenav({ color, brand, brandName, routes, ...rest }) {
+
   const [controller, dispatch] = useMaterialUIController();
   const { miniSidenav, transparentSidenav, whiteSidenav, darkMode, sidenavColor } = controller;
   const location = useLocation();
   const collapseName = location.pathname.replace("/", "");
+  const navigate = useNavigate();
+  const { logout, setCurrentUser, role } = useContext(AuthContext);
 
   let textColor = "white";
 
@@ -70,6 +59,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
       setTransparentSidenav(dispatch, window.innerWidth < 1200 ? false : transparentSidenav);
       setWhiteSidenav(dispatch, window.innerWidth < 1200 ? false : whiteSidenav);
     }
+   
 
     /** 
      The event listener that's calling the handleMiniSidenav function when resizing the window.
@@ -82,6 +72,15 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
     // Remove event listener on cleanup
     return () => window.removeEventListener("resize", handleMiniSidenav);
   }, [dispatch, location]);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      Navigate("/authentication/sign-in");
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
 
   // Render all the routes from the routes.js (All the visible items on the Sidenav)
   const renderRoutes = routes.map(({ type, name, icon, title, noCollapse, key, href, route }) => {
@@ -182,12 +181,13 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
       <MDBox p={2} mt="auto">
         <MDButton
           component="a"
-          href="https://www.creative-tim.com/product/material-dashboard-pro-react"
+          href=""
           target="_blank"
           rel="noreferrer"
           variant="gradient"
           color={sidenavColor}
           fullWidth
+          onClick={handleLogout}
         >
           <LogoutIcon />
           Log out
@@ -200,7 +200,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
 // Setting default values for the props of Sidenav
 Sidenav.defaultProps = {
   color: "info",
-  brand: "",
+  brand: "E-Learning ODC PLatform",
 };
 
 // Typechecking props for the Sidenav

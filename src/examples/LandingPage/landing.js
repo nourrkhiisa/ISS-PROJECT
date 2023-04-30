@@ -21,29 +21,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import React from "react";
 // nodejs library that concatenates classes
 import classnames from "classnames";
@@ -92,9 +69,6 @@ class Landing extends React.Component {
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
   }
-  
-
-
 
   render() {
     return (

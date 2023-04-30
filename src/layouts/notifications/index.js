@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState } from "react";
 
 // @mui material components
@@ -50,7 +35,7 @@ function Notifications() {
     <MDTypography variant="body2" color="white">
       A simple {name} alert with{" "}
       <MDTypography component="a" href="#" variant="body2" fontWeight="medium" color="white">
-        an example link
+        Course updated
       </MDTypography>
       . Give it a click if you like.
     </MDTypography>
@@ -60,8 +45,8 @@ function Notifications() {
     <MDSnackbar
       color="success"
       icon="check"
-      title="Material Dashboard"
-      content="Hello, world! This is a notification message"
+      title="Course updated"
+      content="Another Course updated successfully"
       dateTime="11 mins ago"
       open={successSB}
       onClose={closeSuccessSB}
@@ -73,8 +58,8 @@ function Notifications() {
   const renderInfoSB = (
     <MDSnackbar
       icon="notifications"
-      title="Material Dashboard"
-      content="Hello, world! This is a notification message"
+      title="Course started"
+      content="The Course introduction to Flutter started"
       dateTime="11 mins ago"
       open={infoSB}
       onClose={closeInfoSB}
@@ -86,8 +71,8 @@ function Notifications() {
     <MDSnackbar
       color="warning"
       icon="star"
-      title="Material Dashboard"
-      content="Hello, world! This is a notification message"
+      title="evaluation Quiz Problem"
+      content="there is a bug in the evaluation quiz"
       dateTime="11 mins ago"
       open={warningSB}
       onClose={closeWarningSB}
@@ -100,8 +85,8 @@ function Notifications() {
     <MDSnackbar
       color="error"
       icon="warning"
-      title="Material Dashboard"
-      content="Hello, world! This is a notification message"
+      title="Course Problem"
+      content="One of the participants have a problem to access the Course"
       dateTime="11 mins ago"
       open={errorSB}
       onClose={closeErrorSB}
@@ -153,9 +138,6 @@ function Notifications() {
             <Card>
               <MDBox p={2} lineHeight={0}>
                 <MDTypography variant="h5">Notifications</MDTypography>
-                <MDTypography variant="button" color="text" fontWeight="regular">
-                  Notifications on this page use Toasts from Bootstrap. Read more details here.
-                </MDTypography>
               </MDBox>
               <MDBox p={2}>
                 <Grid container spacing={3}>

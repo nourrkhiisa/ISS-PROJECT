@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 /** 
   All of the routes for the Material Dashboard 2 React are added here,
   You can add a new route, customize the routes and delete the routes here.
@@ -38,11 +23,14 @@ Coded by www.creative-tim.com
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
-import Billing from "layouts/billing";
+import CreateCourse from "layouts/CreateCourse";
 import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
+import Calendar from "layouts/calendar/Calendar";
+import Coachform from "layouts/coachform/coachform";
+import Studentdashboard from "layouts/studentdashboard/studentdashboard";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -58,6 +46,14 @@ const routes = [
   },
   {
     type: "collapse",
+    name: "Calendar",
+    key: "calendar",
+    icon: <Icon fontSize="small">calendar_month</Icon>,
+    route: "/calendar",
+    component: <Calendar />,
+  },
+  {
+    type: "collapse",
     name: "Tables",
     key: "tables",
     icon: <Icon fontSize="small">table_view</Icon>,
@@ -66,11 +62,11 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Billing",
-    key: "billing",
-    icon: <Icon fontSize="small">receipt_long</Icon>,
-    route: "/billing",
-    component: <Billing />,
+    name: "Create Course",
+    key: "Create Course",
+    icon: <Icon fontSize="small">create</Icon>,
+    route: "/CreateCourse",
+    component: <CreateCourse />,
   },
   {
     type: "collapse",
@@ -103,6 +99,22 @@ const routes = [
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/authentication/sign-up",
     component: <SignUp />,
+  },
+  {
+    type: "collapse",
+    name: "Coach Form",
+    key: "Coach Form",
+    icon: <Icon fontSize="small">Coach Form</Icon>,
+    route: "/coachform",
+    component: <Coachform />,
+  },
+  {
+    type: "collapse",
+    name: "Student Dashboard",
+    key: "Student Dashboard",
+    icon: <Icon fontSize="small">Student Dashboard</Icon>,
+    route: "/studentdashboard",
+    component: <Studentdashboard />,
   },
 ];
 

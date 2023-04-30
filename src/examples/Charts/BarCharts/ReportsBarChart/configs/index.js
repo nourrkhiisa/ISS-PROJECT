@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 function configs(labels, datasets) {
   return {
     data: {
@@ -36,6 +21,18 @@ function configs(labels, datasets) {
       plugins: {
         legend: {
           display: false,
+        },
+        tooltip: {
+          callbacks: {
+            title(context) {
+              // Show the training name as the title
+              return context[0].label;
+            },
+            label(context) {
+              // Show the number of attendees as the label
+              return `Attendees: ${context.parsed.y}`;
+            },
+          },
         },
       },
       interaction: {
@@ -65,6 +62,10 @@ function configs(labels, datasets) {
               lineHeight: 2,
             },
             color: "#fff",
+            callback(value) {
+              // Customize the vertical axis labels
+              return `${value}`;
+            },
           },
         },
         x: {
@@ -86,6 +87,10 @@ function configs(labels, datasets) {
               family: "Roboto",
               style: "normal",
               lineHeight: 2,
+            },
+            callback(value) {
+              // Customize the horizontal axis labels
+              return `Tr. ${value}`;
             },
           },
         },
