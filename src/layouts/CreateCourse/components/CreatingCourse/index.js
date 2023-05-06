@@ -84,7 +84,6 @@ function CreateCourse() {
       setError(err.message);
     }
   };
-
   return (
     <Card id="delete-account">
       <CardHeader

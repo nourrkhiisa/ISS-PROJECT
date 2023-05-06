@@ -6,12 +6,14 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [userRole, setUserRole] = useState("");
 
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
   const setCurrentUser = (newUser) => {
     setUser(newUser);
     setUserRole(newUser?.role || "");
   };
+
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {

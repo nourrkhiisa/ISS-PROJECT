@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 // react-router components
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation, Redirect } from "react-router-dom";
 
 // @mui material components
 import { ThemeProvider } from "@mui/material/styles";
@@ -22,11 +22,11 @@ import theme from "assets/theme";
 import themeDark from "assets/theme-dark";
 
 // Material Dashboard 2 React routes
-import routes from "routes";
+import { routes, USER_NAMES } from "routes";
 
 // Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
-import { AuthProvider } from "./contexts/AuthContext";
+import { AuthContext } from "./contexts/AuthContext";
 import { UserProvider, UserContext } from "./contexts/UserContext";
 import { NotificationProvider } from "./contexts/NotificationContext";
 import { CourseProvider } from "./contexts/CourseContext";
@@ -45,7 +45,7 @@ export default function App() {
   } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const { pathname } = useLocation();
-
+  const { currentUser } = useContext(AuthContext);
   // Open sidenav when mouse enter on mini sidenav
   const handleOnMouseEnter = () => {
     if (miniSidenav && !onMouseEnter) {
@@ -76,19 +76,33 @@ export default function App() {
     document.scrollingElement.scrollTop = 0;
   }, [pathname]);
 
-  const getRoutes = (allRoutes) =>
-    allRoutes.map((route) => {
-      if (route.collapse) {
-        return getRoutes(route.collapse);
-      }
-
-      if (route.route) {
-        return <Route exact path={route.route} element={route.component} key={route.key} />;
-      }
-
-      return null;
+  const filteredRoutes = (allRoutes, userType) => {
+    // userType = USER_NAMES.SIGNED_OUT
+    // filter for signed-in users
+    if(!currentUser) {userType = USER_NAMES.SIGNED_OUT;}
+    else {userType = currentUser.role;}
+    /* if (isLoggedIn()) {
+      return allRoutes.filter((routeItem) => {
+        return !routeItem.allowedUsers.includes(userType);
+      });
+    } */
+    return allRoutes.filter((routeItem) => {
+      return routeItem.allowedUsers.includes(userType);
     });
+  };
 
+  const isLoggedIn = () => {
+    // return true
+    return currentUser !== null;
+  }
+
+  const getRoutes = (allRoutes) => {
+    return allRoutes.map((routeItem) => {
+      return (
+        <Route exact path={routeItem.route} element={routeItem.component} key={routeItem.key} />
+      );
+    });
+  };
   const configsButton = (
     <MDBox
       display="flex"
@@ -114,38 +128,40 @@ export default function App() {
   );
 
   return (
-    <AuthProvider>
-      <UserProvider>
-        <NotificationProvider>
-          <CourseProvider>
-            <QuizProvider>
-              <ThemeProvider theme={darkMode ? themeDark : theme}>
-                <CssBaseline />
-                {layout === "dashboard" && (
-                  <>
-                    <Sidenav
-                      color={sidenavColor}
-                      brand={transparentSidenav && !darkMode}
-                      brandName="E-Learning ODC Platform"
-                      routes={routes}
-                      onMouseEnter={handleOnMouseEnter}
-                      onMouseLeave={handleOnMouseLeave}
-                    />
-                    <Configurator />
-                    {configsButton}
-                  </>
-                )}
-                {layout === "vr" && <Configurator />}
+    <UserProvider>
+      <NotificationProvider>
+        <CourseProvider>
+          <QuizProvider>
+            <ThemeProvider theme={darkMode ? themeDark : theme}>
+              <CssBaseline />
+              {isLoggedIn() && layout === "dashboard" && (
+                <>
+                  <Sidenav
+                    color={sidenavColor}
+                    brand={transparentSidenav && !darkMode}
+                    brandName="E-Learning ODC Platform"
+                    routes={filteredRoutes(routes)}
+                    onMouseEnter={handleOnMouseEnter}
+                    onMouseLeave={handleOnMouseLeave}
+                  />
+                  <Configurator />
+                  {configsButton}
+                </>
+              )}
+              {layout === "vr" && <Configurator />}
 
-                <Routes>
-                  {getRoutes(routes)}
-                  <Route path="*" element={<Navigate to="/dashboard" />} />
-                </Routes>
-              </ThemeProvider>
-            </QuizProvider>
-          </CourseProvider>
-        </NotificationProvider>
-      </UserProvider>
-    </AuthProvider>
+              <Routes>
+                {getRoutes(filteredRoutes(routes))}
+                {
+                  isLoggedIn()? 
+                  <Route path="/*" element={<Navigate to="/dashboard" />} />:
+                  <Route path="/*" element={<Navigate to="/authentication/sign-in" />} />
+                }
+              </Routes>
+            </ThemeProvider>
+          </QuizProvider>
+        </CourseProvider>
+      </NotificationProvider>
+    </UserProvider>
   );
 }
