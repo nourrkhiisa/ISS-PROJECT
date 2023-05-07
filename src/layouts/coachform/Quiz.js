@@ -25,39 +25,8 @@ import {
 } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { makeStyles } from "@mui/styles";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    margin: "auto",
-    width: "80%",
-    marginTop: theme.spacing(4),
-  },
-  title: {
-    marginBottom: theme.spacing(4),
-  },
-  card: {
-    marginBottom: theme.spacing(2),
-    padding: theme.spacing(2),
-  },
-  formControl: {
-    margin: theme.spacing(1),
-  },
-  formElement: {
-    marginBottom: theme.spacing(2),
-  },
-  button: {
-    marginRight: theme.spacing(2),
-    backgroundcolor: "dark",
-  },
-  dialogContent: {
-    minWidth: "200px",
-  },
-}));
 
 function Quiz() {
-  const classes = useStyles();
-
   const [showForm, setShowForm] = useState(false);
   const [questions, setQuestions] = useState([]);
 
@@ -134,17 +103,43 @@ function Quiz() {
   };
 
   return (
-    <Box className={classes.root}>
-      <Typography variant="h4" className={classes.title} align="center">
+    <Box
+      style={{
+        margin: "auto",
+        width: "80%",
+        marginTop: (theme) => theme.spacing(4),
+      }}
+    >
+      <Typography
+        variant="h4"
+        style={{
+          marginBottom: (theme) => theme.spacing(4),
+        }}
+        align="center"
+      >
         Create Your Quiz
       </Typography>
-      <Card className={classes.card}>
+      <Card
+        style={{
+          marginBottom: (theme) => theme.spacing(2),
+          padding: (theme) => theme.spacing(2),
+        }}
+      >
         <CardContent>
-          <Button variant="contained" color="primary" onClick={handleCreateQuiz}>
+          <Button
+            variant="contained"
+            style={{
+              marginRight: (theme) => theme.spacing(2),
+            }}
+            onClick={handleCreateQuiz}
+          >
             Create Quiz
           </Button>
           {showForm && (
-            <form onSubmit={handleAddQuestion} className={classes.formElement}>
+            <form
+              onSubmit={handleAddQuestion}
+              style={{ marginBottom: (theme) => theme.spacing(2) }}
+            >
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -153,13 +148,17 @@ function Quiz() {
                 autoFocus
                 value={questionText}
                 onChange={handleQuestionTextChange}
-                className={classes.formElement}
+                style={{ marginBottom: (theme) => theme.spacing(2) }}
               />
               <Paper variant="outlined">
                 <List>
                   {answerOptions.map((option, index) => (
                     <ListItem key={option.id}>
-                      <FormControl component="fieldset" fullWidth className={classes.formControl}>
+                      <FormControl
+                        component="fieldset"
+                        fullWidth
+                        style={{ margin: (theme) => theme.spacing(1) }}
+                      >
                         <RadioGroup>
                           <FormControlLabel
                             value={option.text}
@@ -188,12 +187,16 @@ function Quiz() {
                   ))}
                 </List>
               </Paper>
-              <Box display="flex" justifyContent="flex-start" className={classes.formElement}>
+              <Box
+                display="flex"
+                justifyContent="flex-start"
+                style={{ marginBottom: (theme) => theme.spacing(2) }}
+              >
                 <Button
                   variant="contained"
                   color="primary"
                   onClick={handleAddOption}
-                  className={classes.button}
+                  style={{ marginRight: (theme) => theme.spacing(2) }}
                 >
                   Add Option
                 </Button>
@@ -206,7 +209,13 @@ function Quiz() {
         </CardContent>
       </Card>
       {questions.map((question) => (
-        <Card key={question.id} className={classes.card}>
+        <Card
+          key={question.id}
+          style={{
+            marginBottom: (theme) => theme.spacing(2),
+            padding: (theme) => theme.spacing(2),
+          }}
+        >
           <CardContent>
             <Typography variant="h6">{question.question}</Typography>
             <IconButton
@@ -227,7 +236,11 @@ function Quiz() {
         </Card>
       ))}
       {questions.length > 0 && (
-        <Box display="flex" justifyContent="center" className={classes.formElement}>
+        <Box
+          display="flex"
+          justifyContent="center"
+          style={{ marginBottom: (theme) => theme.spacing(2) }}
+        >
           <Button variant="contained" color="primary" onClick={handleSubmitQuiz}>
             Submit Quiz
           </Button>
@@ -235,7 +248,7 @@ function Quiz() {
       )}
       <Dialog open={openDialog} onClose={handleDialogClose}>
         <DialogTitle>Select Workshop</DialogTitle>
-        <DialogContent className={classes.dialogContent}>
+        <DialogContent>
           <FormControl fullWidth>
             <Select value={selectedWorkshop} onChange={handleWorkshopChange}>
               <MenuItem value="">-- Please select --</MenuItem>

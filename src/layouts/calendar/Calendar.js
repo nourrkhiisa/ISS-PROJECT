@@ -11,33 +11,46 @@ import {
   DialogContent,
   DialogActions,
   TextField,
+  Grid,
 } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-// Material Dashboard 2 React examples
 import DashboardLayout from "../../examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "../../examples/Navbars/DashboardNavbar";
+
+const useStyles = makeStyles({
+  hoverCell: {
+    "& .rbc-day-bg:hover": {
+      backgroundColor: "#FAF9F6 !important",
+    },
+  },
+});
 
 const localizer = momentLocalizer(moment);
 
 const calendar = () => {
-  // eslint-disable-next-line no-unused-vars
-  const [date, setDate] = useState(new Date());
+  const classes = useStyles();
+  const [selectedDate, setSelectedDate] = useState(null);
   const [events, setEvents] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editedEvent, setEditedEvent] = useState(null);
+  const [duration, setDuration] = useState(60);
 
   const addEvent = () => {
-    // eslint-disable-next-line no-alert
-    const eventTitle = prompt("Enter event title:");
-    if (eventTitle) {
-      const newEvent = {
-        id: new Date().getTime(),
-        title: eventTitle,
-        start: date,
-        end: moment(date).add(1, "hour").toDate(),
-      };
-      setEvents([...events, newEvent]);
+    if (selectedDate) {
+      const eventTitle = prompt("Enter event title:");
+      if (eventTitle) {
+        const newEvent = {
+          id: new Date().getTime(),
+          title: `${eventTitle} (${duration} min)`,
+          start: selectedDate,
+          end: moment(selectedDate).add(duration, "minutes").toDate(),
+        };
+        setEvents([...events, newEvent]);
+      }
+    } else {
+      alert("Please select a date on the calendar.");
     }
   };
 
@@ -49,6 +62,7 @@ const calendar = () => {
   const openDialog = (event) => {
     setEditedEvent(event);
     setDialogOpen(true);
+    setDuration(moment(event.end).diff(event.start, "minutes"));
   };
 
   const closeDialog = () => {
@@ -59,7 +73,13 @@ const calendar = () => {
   const editEvent = () => {
     if (editedEvent) {
       const updatedEvents = events.map((event) =>
-        event.id === editedEvent.id ? { ...event, title: editedEvent.title } : event
+        event.id === editedEvent.id
+          ? {
+              ...event,
+              title: editedEvent.title,
+              end: moment(editedEvent.start).add(duration, "minutes").toDate(),
+            }
+          : event
       );
       setEvents(updatedEvents);
     }
@@ -70,6 +90,9 @@ const calendar = () => {
     if (editedEvent) {
       setEditedEvent({ ...editedEvent, title: e.target.value });
     }
+  };
+  const handleDurationChange = (e) => {
+    setDuration(e.target.value);
   };
 
   return (
@@ -86,15 +109,15 @@ const calendar = () => {
         >
           <h2>Trainings Calendar</h2>
           <Calendar
+            className={classes.hoverCell}
             localizer={localizer}
             events={events}
             startAccessor="start"
             endAccessor="end"
             selectable
-            // eslint-disable-next-line no-console
-            onSelectSlot={(slotInfo) => console.log(slotInfo)}
+            onSelectSlot={(slotInfo) => setSelectedDate(slotInfo.start)}
             onSelectEvent={(event) => openDialog(event)}
-            style={{ height: 500 }}
+            style={{ height: 700 }}
           />
           <Button
             variant="contained"
@@ -107,16 +130,31 @@ const calendar = () => {
         <Dialog open={dialogOpen} onClose={closeDialog}>
           <DialogTitle>Edit Event</DialogTitle>
           <DialogContent>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="event-title"
-              label="Event Title"
-              type="text"
-              fullWidth
-              value={editedEvent ? editedEvent.title : ""}
-              onChange={handleTitleChange}
-            />
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="event-title"
+                  label="Event Title"
+                  type="text"
+                  fullWidth
+                  value={editedEvent ? editedEvent.title : ""}
+                  onChange={handleTitleChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  margin="dense"
+                  id="event-duration"
+                  label="Event Duration (minutes)"
+                  type="number"
+                  fullWidth
+                  value={duration}
+                  onChange={handleDurationChange}
+                />
+              </Grid>
+            </Grid>
           </DialogContent>
           <DialogActions>
             <Button onClick={closeDialog} color="error">

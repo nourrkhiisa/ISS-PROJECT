@@ -27,17 +27,17 @@ class CardsFooter extends React.Component {
                   <Link to="/landing-page">
                     <CardImg
                       alt="..."
-                      src={require("assets/img/theme/landing.jpg")}
+                      src={require("../../assets/images/world.png")}
                     />
                   </Link>
                 </Card>
               </Col>
               <Col className="mb-5 mb-lg-0" md="6">
                 <Card className="card-lift--hover shadow border-0">
-                  <Link to="/profile-page">
+                  <Link to="/">
                     <CardImg
                       alt="..."
-                      src={require("assets/img/theme/profile.jpg")}
+                      src={require("../../assets/images/orange.png")}
                     />
                   </Link>
                 </Card>
@@ -48,7 +48,7 @@ class CardsFooter extends React.Component {
             <Row className="row-grid align-items-center my-md">
               <Col lg="6">
                 <h3 className="text-primary font-weight-light mb-2">
-                  Thank you for supporting us!
+                  Thank you for visiting our website!
                 </h3>
                 <h4 className="mb-0 font-weight-light">
                   Let's get in touch on any of these platforms.
@@ -96,20 +96,6 @@ class CardsFooter extends React.Component {
                 </Button>
                 <UncontrolledTooltip delay={0} target="tooltip829810202">
                   Follow us
-                </UncontrolledTooltip>
-                <Button
-                  className="btn-icon-only rounded-circle ml-1"
-                  color="github"
-                  href="https://github.com"
-                  id="tooltip495507257"
-                  target="_blank"
-                >
-                  <span className="btn-inner--icon">
-                    <i className="fa fa-github" />
-                  </span>
-                </Button>
-                <UncontrolledTooltip delay={0} target="tooltip495507257">
-                  Star on Github
                 </UncontrolledTooltip>
               </Col>
             </Row>

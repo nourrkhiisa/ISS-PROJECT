@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 // react-router components
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
@@ -22,10 +22,15 @@ import theme from "assets/theme";
 import themeDark from "assets/theme-dark";
 
 // Material Dashboard 2 React routes
-import routes from "routes";
+import { routes, USER_NAMES } from "routes";
 
 // Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
+import { AuthContext } from "./contexts/AuthContext";
+import { UserProvider } from "./contexts/UserContext";
+import { NotificationProvider } from "./contexts/NotificationContext";
+import { CourseProvider } from "./contexts/CourseContext";
+import { QuizProvider } from "./contexts/QuizContext";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -40,6 +45,7 @@ export default function App() {
   } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const { pathname } = useLocation();
+  const { currentUser } = useContext(AuthContext);
 
   // Open sidenav when mouse enter on mini sidenav
   const handleOnMouseEnter = () => {
@@ -70,6 +76,21 @@ export default function App() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
   }, [pathname]);
+
+  const filteredRoutes = (allRoutes, userTypeInput) => {
+    let userTypeOutput = userTypeInput;
+    // filter for signed-in users
+    if (!currentUser) {
+      userTypeOutput = USER_NAMES.SIGNED_OUT;
+    } else {
+      userTypeOutput = currentUser.role;
+    }
+    return allRoutes.filter((routeItem) => routeItem.allowedUsers.includes(userTypeOutput));
+  };
+
+  const isLoggedIn = () =>
+    // return true
+    currentUser !== null;
 
   const getRoutes = (allRoutes) =>
     allRoutes.map((route) => {
@@ -109,27 +130,39 @@ export default function App() {
   );
 
   return (
-    <ThemeProvider theme={darkMode ? themeDark : theme}>
-      <CssBaseline />
-      {layout === "dashboard" && (
-        <>
-          <Sidenav
-            color={sidenavColor}
-            brand={transparentSidenav && !darkMode}
-            brandName="E-Learning ODC Platform"
-            routes={routes}
-            onMouseEnter={handleOnMouseEnter}
-            onMouseLeave={handleOnMouseLeave}
-          />
-          <Configurator />
-          {configsButton}
-        </>
-      )}
-      {layout === "vr" && <Configurator />}
-      <Routes>
-        {getRoutes(routes)}
-        <Route path="*" element={<Navigate to="/dashboard" />} />
-      </Routes>
-    </ThemeProvider>
+    <UserProvider>
+      <NotificationProvider>
+        <CourseProvider>
+          <QuizProvider>
+            <ThemeProvider theme={darkMode ? themeDark : theme}>
+              <CssBaseline />
+              {isLoggedIn() && layout === "dashboard" && (
+                <>
+                  <Sidenav
+                    color={sidenavColor}
+                    brand={transparentSidenav && !darkMode}
+                    brandName="E-Learning ODC Platform"
+                    routes={routes}
+                    onMouseEnter={handleOnMouseEnter}
+                    onMouseLeave={handleOnMouseLeave}
+                  />
+                  <Configurator />
+                  {configsButton}
+                </>
+              )}
+              {layout === "vr" && <Configurator />}
+              <Routes>
+                {getRoutes(filteredRoutes(routes))}
+                {isLoggedIn() ? (
+                  <Route path="/*" element={<Navigate to="/dashboard" />} />
+                ) : (
+                  <Route path="/*" element={<Navigate to="/authentication/sign-in" />} />
+                )}
+              </Routes>
+            </ThemeProvider>
+          </QuizProvider>
+        </CourseProvider>
+      </NotificationProvider>
+    </UserProvider>
   );
 }

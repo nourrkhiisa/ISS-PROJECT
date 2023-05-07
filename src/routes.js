@@ -30,12 +30,28 @@ import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import Calendar from "layouts/calendar/Calendar";
 import Coachform from "layouts/coachform/coachform";
+import Landing from "examples/LandingPage/landing";
 import Studentdashboard from "layouts/studentdashboard/studentdashboard";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
 
+const USER_NAMES = {
+  ADMIN: "administrator",
+  COACH: "coach",
+  STUDENT: "student",
+  SIGNED_OUT: "signed_out",
+};
+
 const routes = [
+  {
+    type: "collapse",
+    name: "Home",
+    key: "landing",
+    icon: <Icon fontSize="small">home</Icon>,
+    route: "/landing",
+    component: <Landing />,
+  },
   {
     type: "collapse",
     name: "Dashboard",
@@ -43,6 +59,7 @@ const routes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
     component: <Dashboard />,
+    allowedUsers: [USER_NAMES.ADMIN, USER_NAMES.COACH, USER_NAMES.STUDENT],
   },
   {
     type: "collapse",
@@ -51,6 +68,7 @@ const routes = [
     icon: <Icon fontSize="small">calendar_month</Icon>,
     route: "/calendar",
     component: <Calendar />,
+    allowedUsers: [USER_NAMES.ADMIN],
   },
   {
     type: "collapse",
@@ -59,6 +77,7 @@ const routes = [
     icon: <Icon fontSize="small">table_view</Icon>,
     route: "/tables",
     component: <Tables />,
+    allowedUsers: [USER_NAMES.ADMIN],
   },
   {
     type: "collapse",
@@ -67,6 +86,7 @@ const routes = [
     icon: <Icon fontSize="small">create</Icon>,
     route: "/CreateCourse",
     component: <CreateCourse />,
+    allowedUsers: [USER_NAMES.ADMIN, USER_NAMES.COACH],
   },
   {
     type: "collapse",
@@ -75,6 +95,7 @@ const routes = [
     icon: <Icon fontSize="small">notifications</Icon>,
     route: "/notifications",
     component: <Notifications />,
+    allowedUsers: [USER_NAMES.ADMIN, USER_NAMES.COACH, USER_NAMES.STUDENT],
   },
   {
     type: "collapse",
@@ -83,6 +104,7 @@ const routes = [
     icon: <Icon fontSize="small">person</Icon>,
     route: "/profile",
     component: <Profile />,
+    allowedUsers: [USER_NAMES.ADMIN],
   },
   {
     type: "collapse",
@@ -91,6 +113,7 @@ const routes = [
     icon: <Icon fontSize="small">login</Icon>,
     route: "/authentication/sign-in",
     component: <SignIn />,
+    allowedUsers: [USER_NAMES.SIGNED_OUT],
   },
   {
     type: "collapse",
@@ -99,23 +122,26 @@ const routes = [
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/authentication/sign-up",
     component: <SignUp />,
+    allowedUsers: [USER_NAMES.SIGNED_OUT],
   },
   {
     type: "collapse",
     name: "Coach Form",
     key: "Coach Form",
-    icon: <Icon fontSize="small">Coach Form</Icon>,
+    icon: <Icon fontSize="small">supervised_user_circle_icon</Icon>,
     route: "/coachform",
     component: <Coachform />,
+    allowedUsers: [USER_NAMES.COACH],
   },
   {
     type: "collapse",
     name: "Student Dashboard",
     key: "Student Dashboard",
-    icon: <Icon fontSize="small">Student Dashboard</Icon>,
+    icon: <Icon fontSize="small">co_present</Icon>,
     route: "/studentdashboard/",
     component: <Studentdashboard />,
+    allowedUsers: [USER_NAMES.STUDENT],
   },
 ];
 
-export default routes;
+export { routes, USER_NAMES };
